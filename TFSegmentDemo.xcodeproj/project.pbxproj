@@ -16,6 +16,7 @@
 		0159C4F120CFBEB90055BABE /* TFSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = 0159C4E120CFBEB90055BABE /* TFSegment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0159C4F420CFBEB90055BABE /* TFSegment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0159C4DF20CFBEB90055BABE /* TFSegment.framework */; };
 		0159C4F520CFBEB90055BABE /* TFSegment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0159C4DF20CFBEB90055BABE /* TFSegment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0159C54B20CFCD8C0055BABE /* TFItemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */; };
 		2BC56300DE96F1053429BFD8 /* Pods_TFSegmentDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D7ADB4A21A3B573C342BDDC /* Pods_TFSegmentDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		0159C4DF20CFBEB90055BABE /* TFSegment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TFSegment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0159C4E120CFBEB90055BABE /* TFSegment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFSegment.h; sourceTree = "<group>"; };
 		0159C4E220CFBEB90055BABE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFItemLabel.swift; sourceTree = "<group>"; };
 		5D7ADB4A21A3B573C342BDDC /* Pods_TFSegmentDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TFSegmentDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85FDDF34A449FA3225F1D99F /* Pods-TFSegmentDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TFSegmentDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TFSegmentDemo/Pods-TFSegmentDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C038164077B4200782F61C08 /* Pods-TFSegmentDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TFSegmentDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TFSegmentDemo/Pods-TFSegmentDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		0159C4FD20CFCA990055BABE /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 					};
 					0159C4DE20CFBEB90055BABE = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -312,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0159C54B20CFCD8C0055BABE /* TFItemLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +468,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C038164077B4200782F61C08 /* Pods-TFSegmentDemo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TFSegmentDemo/Info.plist;
@@ -481,6 +487,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85FDDF34A449FA3225F1D99F /* Pods-TFSegmentDemo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TFSegmentDemo/Info.plist;
@@ -498,6 +505,7 @@
 		0159C4F720CFBEB90055BABE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -515,6 +523,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jiangyunfeng.TFSegment;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -525,6 +534,7 @@
 		0159C4F820CFBEB90055BABE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
