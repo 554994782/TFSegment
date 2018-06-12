@@ -1,9 +1,9 @@
 PODS:
   - SnapKit (4.0.0)
-  - TFSegment (0.0.24):
+  - TFSegment (0.0.1):
     - SnapKit
-    - TFSegment/Custom (= 0.0.24)
-  - TFSegment/Custom (0.0.24):
+    - TFSegment/Custom (= 0.0.1)
+  - TFSegment/Custom (0.0.1):
     - SnapKit
 
 DEPENDENCIES:
@@ -21,12 +21,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TFSegment:
-    :commit: 344133eb841ce5501eb508ca34ff9e24c24dd6d6
+    :commit: 63b53ce9ba554a0a692b4ec72b77143a9d2a7d05
     :git: https://github.com/554994782/TFSegment.git
 
 SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  TFSegment: 46472b9f57e2e9e7b4b9ff36dfadf686f92a12ca
+  TFSegment: dfd20de062965ce925c26c2485408e5a5812ae24
 
 PODFILE CHECKSUM: 5addf0d3b6a00316beed05c4ea6cfedb35096806
 
