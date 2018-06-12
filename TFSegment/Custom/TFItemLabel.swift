@@ -8,9 +8,9 @@
 
 import UIKit
 
-class TFItemLabel: UILabel {
-    var fillColor : UIColor = UIColor.red //填充色
-    var process : CGFloat = 0.0 {//填充占比
+open class TFItemLabel: UILabel {
+    open var fillColor : UIColor = UIColor.red //填充色
+    open var process : CGFloat = 0.0 {//填充占比
         didSet {
             self.setNeedsDisplay()
         }
@@ -18,7 +18,7 @@ class TFItemLabel: UILabel {
 
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         // Drawing code
         if fillColor.isKind(of: UIColor.classForCoder()) {
             fillColor.setFill()
