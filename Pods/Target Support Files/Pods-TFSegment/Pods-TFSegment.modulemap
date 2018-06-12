@@ -1,0 +1,6 @@
+framework module Pods_TFSegment {
+  umbrella header "Pods-TFSegment-umbrella.h"
+
+  export *
+  module * { export * }
+}

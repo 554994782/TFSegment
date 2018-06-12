@@ -1,16 +1,33 @@
 PODS:
   - SnapKit (4.0.0)
+  - TFSegment (0.0.24):
+    - SnapKit
+    - TFSegment/Custom (= 0.0.24)
+  - TFSegment/Custom (0.0.24):
+    - SnapKit
 
 DEPENDENCIES:
   - SnapKit
+  - TFSegment (from `https://github.com/554994782/TFSegment.git`, branch `develop`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - SnapKit
 
+EXTERNAL SOURCES:
+  TFSegment:
+    :branch: develop
+    :git: https://github.com/554994782/TFSegment.git
+
+CHECKOUT OPTIONS:
+  TFSegment:
+    :commit: 344133eb841ce5501eb508ca34ff9e24c24dd6d6
+    :git: https://github.com/554994782/TFSegment.git
+
 SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  TFSegment: 46472b9f57e2e9e7b4b9ff36dfadf686f92a12ca
 
-PODFILE CHECKSUM: 78acd350ce4accd0650c1f41fc5ac2fcfb0c13df
+PODFILE CHECKSUM: 5addf0d3b6a00316beed05c4ea6cfedb35096806
 
 COCOAPODS: 1.5.0

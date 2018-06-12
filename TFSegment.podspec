@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TFSegment"
-  s.version      = "0.0.24"
+  s.version      = "0.0.1"
   s.summary      = "Have no summary TFSegment."
 
   s.description  = <<-DESC
