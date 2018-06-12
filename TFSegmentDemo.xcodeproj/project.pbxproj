@@ -18,6 +18,8 @@
 		0159C4F520CFBEB90055BABE /* TFSegment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0159C4DF20CFBEB90055BABE /* TFSegment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0159C54B20CFCD8C0055BABE /* TFItemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */; };
 		0159C55120CFEB320055BABE /* TFSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C55020CFEB320055BABE /* TFSegmentView.swift */; };
+		0159C55320CFFDB90055BABE /* TFColorRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C55220CFFDB90055BABE /* TFColorRGB.swift */; };
+		0159C55520CFFFB50055BABE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0159C55420CFFFB50055BABE /* CoreGraphics.framework */; };
 		2BC56300DE96F1053429BFD8 /* Pods_TFSegmentDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D7ADB4A21A3B573C342BDDC /* Pods_TFSegmentDemo.framework */; };
 		C94C1D696F37ACC3AFFE0390 /* Pods_TFSegment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048147C8246CF6AD143ED9CA /* Pods_TFSegment.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +62,8 @@
 		0159C4E220CFBEB90055BABE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFItemLabel.swift; sourceTree = "<group>"; };
 		0159C55020CFEB320055BABE /* TFSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFSegmentView.swift; sourceTree = "<group>"; };
+		0159C55220CFFDB90055BABE /* TFColorRGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFColorRGB.swift; sourceTree = "<group>"; };
+		0159C55420CFFFB50055BABE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		048147C8246CF6AD143ED9CA /* Pods_TFSegment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TFSegment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D7ADB4A21A3B573C342BDDC /* Pods_TFSegmentDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TFSegmentDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85FDDF34A449FA3225F1D99F /* Pods-TFSegmentDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TFSegmentDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TFSegmentDemo/Pods-TFSegmentDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0159C55520CFFFB50055BABE /* CoreGraphics.framework in Frameworks */,
 				C94C1D696F37ACC3AFFE0390 /* Pods_TFSegment.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */,
+				0159C55220CFFDB90055BABE /* TFColorRGB.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -145,6 +151,7 @@
 		8459A34C04405C0C902C3094 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0159C55420CFFFB50055BABE /* CoreGraphics.framework */,
 				5D7ADB4A21A3B573C342BDDC /* Pods_TFSegmentDemo.framework */,
 				048147C8246CF6AD143ED9CA /* Pods_TFSegment.framework */,
 			);
@@ -348,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0159C55320CFFDB90055BABE /* TFColorRGB.swift in Sources */,
 				0159C55120CFEB320055BABE /* TFSegmentView.swift in Sources */,
 				0159C54B20CFCD8C0055BABE /* TFItemLabel.swift in Sources */,
 			);
