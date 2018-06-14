@@ -39,8 +39,8 @@ open class TFSegmentView: UIView {
     }
     /**默认字体大小*/
     public var titleFont: UIFont = UIFont.systemFont(ofSize: 18)
-    /**未选中字体缩小比例，默认是0.9（0~1）*/
-    public var selectFontScale: CGFloat = 0.9
+    /**未选中字体缩小比例，默认是0.8（0~1）*/
+    public var selectFontScale: CGFloat = 0.8
     /**下标效果*/
     public var indicatorStyle: TFIndicatorWidthStyle = .default
     /**下标高度，默认是2.0*/
@@ -51,8 +51,8 @@ open class TFSegmentView: UIView {
     public var separatorColor: UIColor = UIColor.clear
 
     /**代理*/
-    public weak var delegate: TFSegmentViewDelegate?
-    public weak var delegateScrollView: UIScrollView?
+    public weak var delegate: TFSegmentViewDelegate?//代理回调
+    public weak var delegateScrollView: UIScrollView?//设置要跟踪的scrollView
     
     //MARK: 过程记录
     private var tabItems = [TFItemLabel]() //Item数组
@@ -249,6 +249,7 @@ extension TFSegmentView {
             currentTabItem.textColor = unSelectedColor
             selctTabItem.textColor = selectedColor
         }
+        fontAnimate()
     }
     func changeTitleWithGradual() {
         if leftItemIndex != rightItemIndex {
@@ -269,10 +270,7 @@ extension TFSegmentView {
             let rightTabItem = tabItems[rightItemIndex]
             leftTabItem.textColor = leftItemColor
             rightTabItem.textColor = rightItemColor
-            
-            //字体渐变
-            leftTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*rightScale, y: selectFontScale+(1-selectFontScale)*rightScale)
-            rightTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*leftScale, y: selectFontScale+(1-selectFontScale)*leftScale)
+            fontAnimate()
         }
     }
     func changeTitleWithFill() {
@@ -289,6 +287,16 @@ extension TFSegmentView {
         rightTabItem.fillColor = selectedColor
         leftTabItem.process = shiftOffset
         rightTabItem.process = shiftOffset
+        fontAnimate()
+    }
+    //字体渐变
+    func fontAnimate() {
+        let leftScale: CGFloat = shiftOffset
+        let rightScale: CGFloat = 1.0 - leftScale
+        let leftTabItem = tabItems[leftItemIndex]
+        let rightTabItem = tabItems[rightItemIndex]
+        leftTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*rightScale, y: selectFontScale+(1-selectFontScale)*rightScale)
+        rightTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*leftScale, y: selectFontScale+(1-selectFontScale)*leftScale)
     }
     
     //MARK: 下标动画

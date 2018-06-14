@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         sv.delegate = self
         sv.delegateScrollView = scrollView
         sv.titleStyle = .fill
-        sv.indicatorStyle = .stretch
+        sv.indicatorStyle = .followText
         return sv
     }()
     
