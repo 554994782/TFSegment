@@ -10,7 +10,12 @@ import UIKit
 
 open class TFItemLabel: UILabel {
     open var fillColor : UIColor = UIColor.red //填充色
-    open var process : CGFloat = 0.0 {//填充占比
+    open var defaultColor : UIColor = UIColor.black { //填充色
+        didSet {
+            self.textColor = defaultColor
+        }
+    }
+    open var process : CGFloat = 0.2 {//填充占比
         didSet {
             self.setNeedsDisplay()
         }
@@ -20,6 +25,7 @@ open class TFItemLabel: UILabel {
     // An empty implementation adversely affects performance during animation.
     override open func draw(_ rect: CGRect) {
         // Drawing code
+        super.drawText(in: rect)
         if fillColor.isKind(of: UIColor.classForCoder()) {
             fillColor.setFill()
             UIRectFillUsingBlendMode(CGRect.init(x: rect.origin.x, y: rect.origin.y, width: rect.size.width*process, height: rect.size.height), CGBlendMode.sourceIn)

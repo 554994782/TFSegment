@@ -14,14 +14,9 @@ public struct TFColorRGB {
     public var g : CGFloat = 0.0
     public var b : CGFloat = 0.0
     public init(color: UIColor) {
-        var rr : CGFloat = 0.0
-        var gg : CGFloat = 0.0
-        var bb : CGFloat = 0.0
-        if color.getRed(&rr, green: &gg, blue: &bb, alpha: nil) {
-            r = rr
-            g = gg
-            b = bb
-        }
-
+        let colors = color.cgColor.components
+        self.r = colors?[0] ?? 0.0
+        self.g = colors?[1] ?? 0.0
+        self.b = colors?[2] ?? 0.0
     }
 }

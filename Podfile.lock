@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TFSegment:
-    :commit: 63b53ce9ba554a0a692b4ec72b77143a9d2a7d05
+    :commit: 22842bcc957ab0704302b08fb50ca7cf066e0be2
     :git: https://github.com/554994782/TFSegment.git
 
 SPEC CHECKSUMS:
