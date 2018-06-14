@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014027C920D0EA2600669559 /* TFSegmentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014027C820D0EA2600669559 /* TFSegmentStyle.swift */; };
+		014027CB20D1256800669559 /* Timer+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014027CA20D1256800669559 /* Timer+Block.swift */; };
 		0159C4AB20CFBB4F0055BABE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C4AA20CFBB4F0055BABE /* AppDelegate.swift */; };
 		0159C4AD20CFBB4F0055BABE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C4AC20CFBB4F0055BABE /* ViewController.swift */; };
 		0159C4B020CFBB4F0055BABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0159C4AE20CFBB4F0055BABE /* Main.storyboard */; };
@@ -49,6 +51,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		014027C820D0EA2600669559 /* TFSegmentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFSegmentStyle.swift; sourceTree = "<group>"; };
+		014027CA20D1256800669559 /* Timer+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Block.swift"; sourceTree = "<group>"; };
 		0159C4A720CFBB4F0055BABE /* TFSegmentDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TFSegmentDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0159C4AA20CFBB4F0055BABE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0159C4AC20CFBB4F0055BABE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 			children = (
 				0159C54A20CFCD8C0055BABE /* TFItemLabel.swift */,
 				0159C55220CFFDB90055BABE /* TFColorRGB.swift */,
+				014027C820D0EA2600669559 /* TFSegmentStyle.swift */,
+				014027CA20D1256800669559 /* Timer+Block.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -356,7 +362,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0159C55320CFFDB90055BABE /* TFColorRGB.swift in Sources */,
+				014027C920D0EA2600669559 /* TFSegmentStyle.swift in Sources */,
 				0159C55120CFEB320055BABE /* TFSegmentView.swift in Sources */,
+				014027CB20D1256800669559 /* Timer+Block.swift in Sources */,
 				0159C54B20CFCD8C0055BABE /* TFItemLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
