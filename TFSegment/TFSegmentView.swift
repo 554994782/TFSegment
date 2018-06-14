@@ -73,7 +73,10 @@ open class TFSegmentView: UIView {
             if isChangeByClick {
                 changeIndexWithAnimation()
             }
+            #if DEBUG
             print("shiftOffset : \(shiftOffset)")
+            #endif
+            
         }
     }
     
@@ -189,9 +192,8 @@ extension TFSegmentView {
             self.layoutIndicatorView()
         case .stretch:
             self.layoutIndicatorView()
-        default:
-            self.layoutIndicatorView()
         }
+
     }
     
     func layoutIndicatorView() {
@@ -218,8 +220,6 @@ extension TFSegmentView {
             self.changeTitleWithGradual()
         case .fill:
             self.changeTitleWithFill()
-        default:
-            break
         }
     }
     //调整indicator
@@ -231,8 +231,6 @@ extension TFSegmentView {
             self.changeIndicatorWithFollowText()
         case .stretch:
             self.changeIndicatorWithStretch()
-        default:
-            break
         }
     }
     
@@ -440,7 +438,7 @@ extension TFSegmentView {
             var toFloat: CGFloat = 0.0
             selectedTabIndex = nextIndex
             
-            let timer = Timer.block_scheduledTimer(timeInterval: 0.01, repeats: true) {[weak self] (ttimer) in
+        _ = Timer.block_scheduledTimer(timeInterval: 0.01, repeats: true) {[weak self] (ttimer) in
                 guard let `self` = self else { return }
                 toFloat  = toFloat + 1.0
                 if self.leftToRight {
@@ -540,7 +538,10 @@ extension TFSegmentView: UIScrollViewDelegate {
                     }
                     let conX = scrollView.contentOffset.x
                     let rem = conX.truncatingRemainder(dividingBy: scrollView.bounds.width)
+                    #if DEBUG
                     print("rem \(rem)")
+                    #endif
+                    
                     if 0 == rem {
                         selectedTabIndex = NSInteger(scrollView.contentOffset.x / scrollView.bounds.width)
                     }
