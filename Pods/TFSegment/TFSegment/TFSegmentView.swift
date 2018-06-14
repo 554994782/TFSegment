@@ -10,7 +10,7 @@ import UIKit
 
 public protocol TFSegmentViewDelegate : NSObjectProtocol {
     /// 点击item回调
-    func select(_ index: NSInteger)
+    func select(_ index: NSInteger, animated: Bool)
 }
 
 open class TFSegmentView: UIView {
@@ -18,7 +18,7 @@ open class TFSegmentView: UIView {
     //MARK: 公开属性
     
     /**背景颜色, 默认白色*/
-    public var backColor: UIColor = UIColor.white
+    public var backColor: UIColor = UIColor.gray
     /**Item最大显示数, 默认8*/
     public var maxItemCount: NSInteger = 8
     /**Item宽度, 不设置则平分*/
@@ -38,9 +38,9 @@ open class TFSegmentView: UIView {
         }
     }
     /**默认字体大小*/
-    public var titleFont: UIFont = UIFont.systemFont(ofSize: 16)
-    /**未选中字体缩小比例，默认是0.8（0~1）*/
-    public var selectFontScale: CGFloat = 0.8
+    public var titleFont: UIFont = UIFont.systemFont(ofSize: 18)
+    /**未选中字体缩小比例，默认是0.9（0~1）*/
+    public var selectFontScale: CGFloat = 0.9
     /**下标效果*/
     public var indicatorStyle: TFIndicatorWidthStyle = .default
     /**下标高度，默认是2.0*/
@@ -58,7 +58,8 @@ open class TFSegmentView: UIView {
     
     /**代理*/
     public weak var delegate: TFSegmentViewDelegate?
-
+    public weak var delegateScrollView: UIScrollView?
+    
     //MARK: 过程记录
     private var tabItems = [TFItemLabel]() //Item数组
     private var lastSelectedTabIndex: NSInteger = 0 //记录上一次的索引
@@ -73,7 +74,7 @@ open class TFSegmentView: UIView {
             if isChangeByClick {
                 changeIndexWithAnimation()
             }
-            print("\(shiftOffset)")
+            print("shiftOffset : \(shiftOffset)")
         }
     }
     
@@ -87,7 +88,7 @@ open class TFSegmentView: UIView {
         super.init(frame: frame)
         titleDatas = titles
         numOfItemCount = titles.count < maxItemCount ?titles.count : maxItemCount
-        
+        addAllSubViews()
         
     }
     required public init?(coder aDecoder: NSCoder) {
@@ -147,10 +148,11 @@ open class TFSegmentView: UIView {
         }
         self.addSubview(separatorView)
         self.addSubview(indicatorView)
+        layoutIfNeeded()
     }
     
     override open func layoutSubviews() {
-        if(isNeedRefreshLayout) {
+        if(isNeedRefreshLayout && tabItems.count > 0) {
             //tab layout
             if 0 == tabItemWidth {
                 tabItemWidth = self.bounds.width/CGFloat(numOfItemCount)
@@ -161,7 +163,13 @@ open class TFSegmentView: UIView {
             
             var i = 0
             for item in tabItems {
-                item.frame = CGRect(x: 0, y: 0, width: tabItemWidth, height: self.bounds.height)
+                item.frame = CGRect(x: tabItemWidth * CGFloat(i), y: 0, width: tabItemWidth, height: self.bounds.height)
+                item.process = 0.0
+                if(i != selectedTabIndex) {
+                    item.transform = CGAffineTransform(scaleX: selectFontScale, y: selectFontScale)
+                } else {
+                    item.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
                 i = i + 1
             }
             
@@ -246,17 +254,17 @@ extension TFSegmentView {
     func changeTitleWithGradual() {
         if leftItemIndex != rightItemIndex {
             
-            let rightScale: CGFloat = shiftOffset
-            let leftScale: CGFloat = 1.0 - rightScale
+            let leftScale: CGFloat = shiftOffset
+            let rightScale: CGFloat = 1.0 - leftScale
             
             //颜色渐变
             let difR = selectColorRGB.r-unSelectColorRGB.r
             let difG = selectColorRGB.g-unSelectColorRGB.g
             let difB = selectColorRGB.b-unSelectColorRGB.b
             
-            let leftItemColor = UIColor.init(red: unSelectColorRGB.r+leftScale*difR, green: unSelectColorRGB.g+leftScale*difG, blue: unSelectColorRGB.b+leftScale*difB, alpha: 1.0)
+            let leftItemColor = UIColor.init(red: unSelectColorRGB.r+rightScale*difR, green: unSelectColorRGB.g+rightScale*difG, blue: unSelectColorRGB.b+rightScale*difB, alpha: 1.0)
 
-            let rightItemColor = UIColor.init(red: unSelectColorRGB.r+rightScale*difR, green: unSelectColorRGB.g+rightScale*difG, blue: unSelectColorRGB.b+rightScale*difB, alpha: 1.0)
+            let rightItemColor = UIColor.init(red: unSelectColorRGB.r+leftScale*difR, green: unSelectColorRGB.g+leftScale*difG, blue: unSelectColorRGB.b+leftScale*difB, alpha: 1.0)
             
             let leftTabItem = tabItems[leftItemIndex]
             let rightTabItem = tabItems[rightItemIndex]
@@ -264,8 +272,8 @@ extension TFSegmentView {
             rightTabItem.textColor = rightItemColor
             
             //字体渐变
-            leftTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*leftScale, y: selectFontScale+(1-selectFontScale)*leftScale)
-            rightTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*rightScale, y: selectFontScale+(1-selectFontScale)*rightScale)
+            leftTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*rightScale, y: selectFontScale+(1-selectFontScale)*rightScale)
+            rightTabItem.transform = CGAffineTransform(scaleX: selectFontScale+(1-selectFontScale)*leftScale, y: selectFontScale+(1-selectFontScale)*leftScale)
         }
     }
     func changeTitleWithFill() {
@@ -286,14 +294,35 @@ extension TFSegmentView {
     
     //MARK: 下标动画
     func changeIndicatorWithDefault() {
-        //计算indicator此时的centerx
-        let nowIndicatorCenterX = tabItemWidth * (shiftOffset + CGFloat(leftItemIndex))
+
+        let leftTabItem = tabItems[leftItemIndex]
+        let rightTabItem = tabItems[rightItemIndex]
+        
+        let diffOfCenterX = rightTabItem.center.x - leftTabItem.center.x
+        let nowIndicatorCenterX = leftTabItem.center.x + shiftOffset * diffOfCenterX
         self.indicatorView.frame = CGRect.init(x: nowIndicatorCenterX - indicatorWidth/2.0, y: self.indicatorView.frame.origin.y, width: indicatorWidth, height: indicatorHeight)
+        
+//        let selectTabItem = tabItems[selectedTabIndex]
+//        let currentTabItem = tabItems[lastSelectedTabIndex]
+//
+//        var shift = shiftOffset
+//        let diffOfCenterX = selectTabItem.center.x - currentTabItem.center.x
+//        if diffOfCenterX < 0 {
+//            shift = 1 - shiftOffset
+//        }
+////        //计算indicator此时的centerx
+//        var nowIndicatorCenterX = currentTabItem.center.x + shift * diffOfCenterX
+//        if 0 == shiftOffset {
+//            nowIndicatorCenterX = selectTabItem.center.x
+//        }
+//        self.indicatorView.frame = CGRect.init(x: nowIndicatorCenterX - indicatorWidth/2.0, y: self.indicatorView.frame.origin.y, width: indicatorWidth, height: indicatorHeight)
 
     }
     func changeIndicatorWithFollowText() {
-        //计算indicator此时的centerx
-        let nowIndicatorCenterX = tabItemWidth * (shiftOffset + CGFloat(leftItemIndex))
+        
+        let leftTabItem = tabItems[leftItemIndex]
+        let rightTabItem = tabItems[rightItemIndex]
+        
         //计算此时body的偏移量在一页中的占比
         var relativeLocation = shiftOffset
         //记录左右对应的indicator宽度
@@ -307,6 +336,9 @@ extension TFSegmentView {
         }
         //基于从左到右方向（无需考虑滑动方向），计算当前中心轴所处位置的长度
         let nowIndicatorWidth: CGFloat = leftIndicatorWidth + (rightIndicatorWidth - leftIndicatorWidth) * relativeLocation
+        
+        let diffOfCenterX = rightTabItem.center.x - leftTabItem.center.x
+        let nowIndicatorCenterX = leftTabItem.center.x + shiftOffset * diffOfCenterX
         
         self.indicatorView.frame = CGRect(x: nowIndicatorCenterX - nowIndicatorWidth/2.0, y: self.indicatorView.frame.origin.y, width: nowIndicatorWidth, height: indicatorHeight)
     }
@@ -327,18 +359,24 @@ extension TFSegmentView {
         //当前的frame
         var nowFrame = self.indicatorView.frame
 
-        
+        let dif = CGFloat(abs(leftItemIndex-rightItemIndex))
         //重新计算frame
         if(relativeLocation <= 0.5) {
-            let width = indicatorWidth + tabItemWidth * (relativeLocation / 0.5)
+            let width = indicatorWidth + tabItemWidth * dif * (relativeLocation / 0.5)
             nowFrame.size.width = width
+            
+            if leftToRight {
+                nowFrame.origin.x = leftTabItem.center.x - indicatorWidth/2
+            } else {
+                nowFrame.origin.x = rightTabItem.center.x + indicatorWidth/2 - (indicatorWidth + tabItemWidth*dif)
+            }
         } else {
-            let width = indicatorWidth + tabItemWidth * ((1 - relativeLocation) / 0.5)
+            let width = indicatorWidth + tabItemWidth * dif * ((1 - relativeLocation) / 0.5)
             nowFrame.size.width = width
             if leftToRight {
-                 nowFrame.origin.x = rightTabItem.center.x + indicatorWidth/2 - width
+                 nowFrame.origin.x = leftTabItem.center.x - indicatorWidth/2 + (indicatorWidth + tabItemWidth*dif) - width
             } else {
-                nowFrame.origin.x = leftTabItem.center.x + indicatorWidth/2 - width
+                nowFrame.origin.x = rightTabItem.center.x + indicatorWidth/2 - width
             }
         }
         
@@ -353,45 +391,80 @@ extension TFSegmentView {
         let nextIndex: NSInteger = tabItems.index(of: tap.view as! TFItemLabel) ?? 0
         if(nextIndex != selectedTabIndex) {
             isChangeByClick = true
+            let dif = abs(nextIndex - selectedTabIndex)
+            let animate = !(dif > 1)
             changeSelectedItemToNextItem(nextIndex: nextIndex)
             contentView.isUserInteractionEnabled = false //防止快速切换
+            delegateScrollView?.isUserInteractionEnabled = false
             if let del = delegate {
-                del.select(nextIndex)
+                del.select(nextIndex, animated: animate)
+                if let scroll = delegateScrollView {
+                    if animate {
+                        scroll.setContentOffset(CGPoint(x: scroll.bounds.width * CGFloat(nextIndex), y: 0), animated: animate)
+                    } else {
+                        scroll.setContentOffset(CGPoint(x: scroll.bounds.width * CGFloat(nextIndex)-1, y: 0), animated: animate)
+                        scroll.setContentOffset(CGPoint(x: scroll.bounds.width * CGFloat(nextIndex), y: 0), animated: true)
+                    }
+                }
+                
             }
         }
     }
     
     func changeSelectedItemToNextItem(nextIndex: NSInteger) {
-        if abs(selectedTabIndex-nextIndex) > 1 {//间隔超过一格时，无动画效果
-            let currentTabItem = tabItems[selectedTabIndex]
-            let nextTabItem = tabItems[nextIndex]
-            currentTabItem.textColor = unSelectedColor
-            nextTabItem.textColor = selectedColor
-            changeIndex(nextIndex: nextIndex)
-            switch (indicatorStyle) {
-            case .default, .stretch:
-                self.changeIndicatorWithDefault()
-            case .followText:
-                self.changeIndicatorWithFollowText()
-            }
-        } else {//动画效果
+//        if abs(selectedTabIndex-nextIndex) > 1 {//间隔超过一格时，无动画效果
+//            let currentTabItem = tabItems[selectedTabIndex]
+//            let nextTabItem = tabItems[nextIndex]
+//            currentTabItem.textColor = unSelectedColor
+//            nextTabItem.textColor = selectedColor
+//            changeIndex(nextIndex: nextIndex)
+//            switch (indicatorStyle) {
+//            case .default, .stretch:
+//                self.changeIndicatorWithDefault()
+//            case .followText:
+//                self.changeIndicatorWithFollowText()
+//            }
+//            finishChangeAnimate()
+//        } else {//动画效果
             leftToRight = nextIndex > selectedTabIndex
             leftItemIndex = leftToRight ? selectedTabIndex : nextIndex
             rightItemIndex = leftToRight ? nextIndex : selectedTabIndex
             shiftOffset = leftToRight ? 0.0 : 1.0
-            let toFloat: CGFloat = leftToRight ? 1.0 : 0.0
+            var toFloat: CGFloat = 0.0
             selectedTabIndex = nextIndex
-            UIView.animate(withDuration: 0.25, animations: {
-                self.shiftOffset = toFloat
-            }) { (finish) in
-                //重置
-                self.finishChangeAnimate()
-            }
-//            let timer = Timer.block_scheduledTimer(timeInterval: 0.1, repeats: true) { (ttimer) in
-//
-//            }
             
-        }
+            let timer = Timer.block_scheduledTimer(timeInterval: 0.01, repeats: true) {[weak self] (ttimer) in
+                guard let `self` = self else { return }
+                toFloat  = toFloat + 1.0
+                if self.leftToRight {
+                    var num = toFloat/25.0
+                    if num > 1 {
+                        num = 1
+                    }
+                    self.shiftOffset = num
+                } else {
+                    var num = 1.0 - toFloat/25.0
+                    if num < 0 {
+                        num = 0
+                    }
+                    self.shiftOffset = num
+                    
+                }
+                if toFloat > 30 {
+                    ttimer.invalidate()
+//                    self.finishChangeAnimate()
+                }
+            }
+            
+//            UIView.animate(withDuration: 0.25, animations: {
+//                self.shiftOffset = toFloat
+//            }) { (finish) in
+//                //重置
+//                self.finishChangeAnimate()
+//            }
+
+            
+//        }
         
     }
     
@@ -420,7 +493,6 @@ extension TFSegmentView {
     }
     
     func finishChangeAnimate() {
-        shiftOffset = 0.0
         isNeedRefreshLayout = true
         isChangeByClick = false
         contentView.isUserInteractionEnabled = true
@@ -433,6 +505,8 @@ extension TFSegmentView: UIScrollViewDelegate {
         isNeedRefreshLayout = false
         if scrollView == contentView {
         } else {
+            contentView.isUserInteractionEnabled = false
+//            scrollView.isUserInteractionEnabled = false
             //未初始化时不处理
             if scrollView.contentSize.width <= 0 {
                 return
@@ -457,13 +531,16 @@ extension TFSegmentView: UIScrollViewDelegate {
                     if leftItemIndex < selectedTabIndex {
                         leftToRight = false
                     }
+                    let conX = scrollView.contentOffset.x
+                    let rem = conX.truncatingRemainder(dividingBy: scrollView.bounds.width)
+                    print("rem \(rem)")
+                    if 0 == rem {
+                        selectedTabIndex = NSInteger(scrollView.contentOffset.x / scrollView.bounds.width)
+                    }
+                    shiftOffset = rem / scrollView.bounds.width
+                    changeIndexWithAnimation()
                 }
-                let conX = scrollView.contentOffset.x
-                let rem = conX.truncatingRemainder(dividingBy: scrollView.bounds.width)
-                if 0 == rem {
-                    selectedTabIndex = NSInteger(scrollView.contentOffset.x / scrollView.bounds.width)
-                }
-                shiftOffset = rem / scrollView.bounds.width
+                
                 
             }
         }
@@ -471,18 +548,41 @@ extension TFSegmentView: UIScrollViewDelegate {
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        finishChangeAnimate()
+        
         if scrollView == contentView {
         } else {
             selectedTabIndex = (NSInteger)(scrollView.contentOffset.x / scrollView.bounds.width + CGFloat(0.5))
+            adjustItems()
+            isChangeByClick = false
+            contentView.isUserInteractionEnabled = true
+            scrollView.isUserInteractionEnabled = true
+            
         }
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        finishChangeAnimate()
         if scrollView == contentView {
         } else {
             selectedTabIndex = (NSInteger)(scrollView.contentOffset.x / scrollView.bounds.width + CGFloat(0.5))
+            adjustItems()
+            isChangeByClick = false
+            contentView.isUserInteractionEnabled = true
+            scrollView.isUserInteractionEnabled = true
+//            finishChangeAnimate()
+        }
+    }
+    
+    func adjustItems() {
+        var i = 0
+        for item in tabItems {
+            item.frame = CGRect(x: tabItemWidth * CGFloat(i), y: 0, width: tabItemWidth, height: self.bounds.height)
+            item.process = 0.0
+            if(i == selectedTabIndex) {
+                item.textColor = selectedColor
+            } else {
+                item.textColor = unSelectedColor
+            }
+            i = i + 1
         }
     }
 }

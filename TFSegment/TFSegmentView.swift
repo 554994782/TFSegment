@@ -49,20 +49,19 @@ open class TFSegmentView: UIView {
     public var indicatorWidth: CGFloat = 20.0
     /**底部分割线颜色*/
     public var separatorColor: UIColor = UIColor.clear
-    /**当前选择项*/
-    public var selectedTabIndex: NSInteger = 0 {
-        willSet {
-            lastSelectedTabIndex = selectedTabIndex
-        }
-    }
-    
+
     /**代理*/
     public weak var delegate: TFSegmentViewDelegate?
     public weak var delegateScrollView: UIScrollView?
     
     //MARK: 过程记录
     private var tabItems = [TFItemLabel]() //Item数组
-    private var lastSelectedTabIndex: NSInteger = 0 //记录上一次的索引
+    private var selectedTabIndex: NSInteger = 0 {//当前选择项
+        willSet {
+            lastSelectedTabIndex = selectedTabIndex
+        }
+    }
+    private var lastSelectedTabIndex: NSInteger = 0 //记录上一次选择项
     private var isNeedRefreshLayout = true //滑动过程中不允许layoutSubviews
     private var isChangeByClick = false //是否是通过点击改变的
     private var leftItemIndex: NSInteger = 0 //记录滑动时左边的itemIndex
