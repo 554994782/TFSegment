@@ -1,4 +1,4 @@
-![(logo)](https://raw.githubusercontent.com/554994782/TFSegment/master/logo.png)
+![(logo)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/logo.png)
 ## TFSegment
 * A selector view who contains some simple animation effects
 
@@ -39,7 +39,7 @@
     * Import the main file：`import TFSegment`
 
 ## <a id="The_Structure_Chart_of_TFSegment"></a>The Structure Chart of TFSegment
-![](https://raw.githubusercontent.com/554994782/TFSegment/master/structure.png)
+![](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/structure.png)
 
 
 ## <a id="The_TFSegment_change_01_Default"></a>The TFSegment change 01_Default
@@ -54,7 +54,7 @@ lazy var segmentView: TFSegmentView = {
     return sv
 }()
 ```
-![(文字颜色直接变，下标无拉伸变化)](https://raw.githubusercontent.com/554994782/TFSegment/master/animate01.gif)
+![(文字颜色直接变，下标无拉伸变化)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/animate01.gif)
 
 ## <a id="The_TFSegment_change_02_Animate"></a>The TFSegment change 02_Animate
 ```swift
@@ -67,7 +67,7 @@ lazy var segmentView: TFSegmentView = {
     return sv
 }()
 ```
-![(文字颜色渐变，下标随文本长度变化)](https://raw.githubusercontent.com/554994782/TFSegment/master/animate02.gif)
+![(文字颜色渐变，下标随文本长度变化)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/animate02.gif)
 
 ## <a id="The_TFSegment_change_03_Animate"></a>The TFSegment change 03_Animate
 ```swift
@@ -80,7 +80,7 @@ lazy var segmentView: TFSegmentView = {
     return sv
 }()
 ```
-![(文字颜色渐变，下标随文本长度变化)](https://raw.githubusercontent.com/554994782/TFSegment/master/animate03.gif)
+![(文字颜色渐变，下标随文本长度变化)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/animate03.gif)
 
 ## <a id="The_TFSegment_change_04_Animate"></a>The TFSegment change 04_Animate
 ```swift
@@ -93,7 +93,7 @@ lazy var segmentView: TFSegmentView = {
     return sv
 }()
 ```
-![(文字颜色渐变，下标随文本长度变化)](https://raw.githubusercontent.com/554994782/TFSegment/master/animate04.gif)
+![(文字颜色渐变，下标随文本长度变化)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/animate04.gif)
 
 ## <a id="The_TFSegment_change_05_Other_Fields"></a>The TFSegment change 05_Other_Fields
 ```swift
@@ -144,10 +144,10 @@ extension ViewController: UIScrollViewDelegate {
 * If you want to contribute code for TFSegment，please Pull Requests me
 *  If you use TFSegment in your develop app，Hope you can go to [CocoaControls](https://www.cocoacontrols.com/controls/tfsegment) to add the iTunes path of you app，I Will install your app，and according to the usage of many app，to be a better design and improve to TFSegment，Thank you !
 * Step01（WeChat is just an Example，Explore“Your app name itunes”）
-![(step01)](https://raw.githubusercontent.com/554994782/TFSegment/master/hope01.jpg)
+![(step01)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/hope01.jpg)
 * Step02
-![(step02)](https://raw.githubusercontent.com/554994782/TFSegment/master/hope02.jpg)
+![(step02)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/hope02.jpg)
 * Step03
-![(step03)](https://raw.githubusercontent.com/554994782/TFSegment/master/hope03.jpg)
+![(step03)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/hope03.jpg)
 * Step04
-![(step04)](https://raw.githubusercontent.com/554994782/TFSegment/master/hope04.jpg)
+![(step04)](https://raw.githubusercontent.com/554994782/TFSegment/blob/master/hope04.jpg)
