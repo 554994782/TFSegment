@@ -10,8 +10,6 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 
 source 'https://github.com/Cocoapods/Specs.git'
-source 'https://github.com/554994782/JYFSpecs.git'
-
 
 target 'TFSegmentDemo' do
     use_frameworks!

@@ -1,6 +1,6 @@
 {
   "name": "TFSegment",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "summary": "Have no summary TFSegment.",
   "description": "A Main Foundation Component for Other Kit",
   "homepage": "https://github.com/554994782/TFSegment.git",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/554994782/TFSegment.git",
-    "branch": "develop"
+    "tag": "1.0.0"
   },
   "source_files": "TFSegment",
   "public_header_files": "TFSegment/**/*.h",
