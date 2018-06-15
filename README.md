@@ -80,7 +80,7 @@ lazy var segmentView: TFSegmentView = {
     return sv
 }()
 ```
-![(文字颜色渐变，下标随文本长度变化)](https://github.com/554994782/TFSegment/blob/master/Images/animate03.gif)
+![(文字颜色进度填充，下标随文本长度变化)](https://github.com/554994782/TFSegment/blob/master/Images/animate03.gif)
 
 ## <a id="The_TFSegment_change_04_Animate"></a>The TFSegment change 04_Animate
 ```swift
@@ -93,7 +93,7 @@ lazy var segmentView: TFSegmentView = {
     return sv
 }()
 ```
-![(文字颜色渐变，下标随文本长度变化)](https://github.com/554994782/TFSegment/blob/master/Images/animate04.gif)
+![(文字颜色进度填充，下标随文本长度变化)](https://github.com/554994782/TFSegment/blob/master/Images/animate04.gif)
 
 ## <a id="The_TFSegment_change_05_Other_Fields"></a>The TFSegment change 05_Other_Fields
 ```swift
