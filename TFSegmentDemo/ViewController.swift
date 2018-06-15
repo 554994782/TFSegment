@@ -29,18 +29,18 @@ class ViewController: UIViewController {
     
     ///第1层子视图
     lazy var segmentView1: TFSegmentView = {
-        let sv = TFSegmentView.init(frame: CGRect.init(x: 0, y: 60, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
+        let sv = TFSegmentView(frame: CGRect.init(x: 0, y: 60, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
         sv.delegate = self
         sv.delegateScrollView = scrollView
-        sv.titleStyle = .default
-        sv.indicatorStyle = .default
-        sv.selectFontScale = 1.0//文字不缩放
+        sv.titleStyle = .default //文字颜色直接变
+        sv.indicatorStyle = .default //下标无拉伸变化
+        sv.selectFontScale = 1.0//文字缩放比例，文字不缩放
         return sv
     }()
     
     ///第2层子视图
     lazy var segmentView2: TFSegmentView = {
-        let sv = TFSegmentView.init(frame: CGRect.init(x: 0, y: segmentView1.frame.maxY+2, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
+        let sv = TFSegmentView(frame: CGRect.init(x: 0, y: segmentView1.frame.maxY+2, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
         sv.delegate = self
         sv.delegateScrollView = scrollView
         sv.titleStyle = .gradual//title颜色渐变
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     ///第3层子视图
     lazy var segmentView3: TFSegmentView = {
-        let sv = TFSegmentView.init(frame: CGRect.init(x: 0, y: segmentView2.frame.maxY+2, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
+        let sv = TFSegmentView(frame: CGRect.init(x: 0, y: segmentView2.frame.maxY+2, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
         sv.delegate = self
         sv.delegateScrollView = scrollView
         sv.titleStyle = .fill//title颜色进度填充
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     
     ///第4层子视图
     lazy var segmentView4: TFSegmentView = {
-        let sv = TFSegmentView.init(frame: CGRect.init(x: 0, y: segmentView3.frame.maxY+2, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
+        let sv = TFSegmentView(frame: CGRect.init(x: 0, y: segmentView3.frame.maxY+2, width: UIScreen.main.bounds.width, height: 60), titles: titleArray)
         sv.delegate = self
         sv.delegateScrollView = scrollView
         sv.titleStyle = .fill//title颜色进度填充
