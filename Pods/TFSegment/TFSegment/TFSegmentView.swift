@@ -40,7 +40,7 @@ open class TFSegmentView: UIView {
     /**默认字体大小*/
     public var titleFont: UIFont = UIFont.systemFont(ofSize: 18)
     /**未选中字体缩小比例，默认是0.8（0~1）*/
-    public var selectFontScale: CGFloat = 0.8
+    public var selectFontScale: CGFloat = 0.8 
     /**下标效果*/
     public var indicatorStyle: TFIndicatorWidthStyle = .default
     /**下标高度，默认是2.0*/

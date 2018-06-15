@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012CA73F20D29EBF00D0DBFF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 012CA73E20D29EBF00D0DBFF /* README.md */; };
 		014027C920D0EA2600669559 /* TFSegmentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014027C820D0EA2600669559 /* TFSegmentStyle.swift */; };
 		014027CB20D1256800669559 /* Timer+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014027CA20D1256800669559 /* Timer+Block.swift */; };
 		0159C4AB20CFBB4F0055BABE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159C4AA20CFBB4F0055BABE /* AppDelegate.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		012CA73E20D29EBF00D0DBFF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		014027C820D0EA2600669559 /* TFSegmentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFSegmentStyle.swift; sourceTree = "<group>"; };
 		014027CA20D1256800669559 /* Timer+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Block.swift"; sourceTree = "<group>"; };
 		0159C4A720CFBB4F0055BABE /* TFSegmentDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TFSegmentDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 		0159C4A920CFBB4F0055BABE /* TFSegmentDemo */ = {
 			isa = PBXGroup;
 			children = (
+				012CA73E20D29EBF00D0DBFF /* README.md */,
 				0159C4AA20CFBB4F0055BABE /* AppDelegate.swift */,
 				0159C4AC20CFBB4F0055BABE /* ViewController.swift */,
 				0159C4AE20CFBB4F0055BABE /* Main.storyboard */,
@@ -274,6 +277,7 @@
 			files = (
 				0159C4B520CFBB530055BABE /* LaunchScreen.storyboard in Resources */,
 				0159C4B220CFBB530055BABE /* Assets.xcassets in Resources */,
+				012CA73F20D29EBF00D0DBFF /* README.md in Resources */,
 				0159C4D920CFBDA50055BABE /* TFSegment.podspec in Resources */,
 				0159C4B020CFBB4F0055BABE /* Main.storyboard in Resources */,
 			);

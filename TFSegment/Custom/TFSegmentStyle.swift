@@ -19,5 +19,6 @@ public enum TFTitleTransformStyle: Int {
 public enum TFIndicatorWidthStyle: Int {
     case `default` = 0 //自定义宽度
     case followText //随文本长度变化
-    case stretch //拉伸
+    case stretch //自定义宽度且拉伸
+    case followTextStretch //随文本长度变化且拉伸
 }

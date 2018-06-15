@@ -18,7 +18,7 @@ open class TFSegmentView: UIView {
     //MARK: 公开属性
     
     /**背景颜色, 默认白色*/
-    public var backColor: UIColor = UIColor.gray
+    public var backColor: UIColor = UIColor.white
     /**Item最大显示数, 默认8*/
     public var maxItemCount: NSInteger = 8
     /**Item宽度, 不设置则平分*/
@@ -40,13 +40,18 @@ open class TFSegmentView: UIView {
     /**默认字体大小*/
     public var titleFont: UIFont = UIFont.systemFont(ofSize: 18)
     /**未选中字体缩小比例，默认是0.8（0~1）*/
-    public var selectFontScale: CGFloat = 0.8
+    public var selectFontScale: CGFloat = 0.8 {
+        didSet {
+            layoutSubviews()
+        }
+        
+    }
     /**下标效果*/
     public var indicatorStyle: TFIndicatorWidthStyle = .default
     /**下标高度，默认是2.0*/
     public var indicatorHeight: CGFloat = 2.0
-    /**下标宽度*/
-    public var indicatorWidth: CGFloat = 20.0
+    /**下标宽度，默认是30*/
+    public var indicatorWidth: CGFloat = 30.0
     /**底部分割线颜色*/
     public var separatorColor: UIColor = UIColor.clear
 
@@ -112,6 +117,7 @@ open class TFSegmentView: UIView {
         cv.showsHorizontalScrollIndicator = false
         cv.delegate = self
         cv.clipsToBounds = true
+        cv.backgroundColor = backColor
         return cv
     }()
     
@@ -192,6 +198,8 @@ extension TFSegmentView {
             self.layoutIndicatorView()
         case .stretch:
             self.layoutIndicatorView()
+        case .followTextStretch:
+            self.layoutIndicatorView()
         }
 
     }
@@ -231,6 +239,8 @@ extension TFSegmentView {
             self.changeIndicatorWithFollowText()
         case .stretch:
             self.changeIndicatorWithStretch()
+        case .followTextStretch:
+            self.changeIndicatorWithFollowTextStretch()
         }
     }
     
@@ -387,6 +397,54 @@ extension TFSegmentView {
         
         self.indicatorView.frame = nowFrame
     }
+    
+    func changeIndicatorWithFollowTextStretch() {
+        if(indicatorWidth <= 0) {
+            return
+        }
+        //计算此时body的偏移量在一页中的占比
+        var relativeLocation = shiftOffset
+        //左右边界的时候，占比清0
+        if(leftItemIndex == rightItemIndex) {
+            relativeLocation = 0
+        }
+        
+        let leftTabItem = tabItems[leftItemIndex]
+        let rightTabItem = tabItems[rightItemIndex]
+        
+        //记录左右对应的indicator宽度
+        let leftIndicatorWidth = getIndicatorWidth(title: titleDatas[leftItemIndex])
+        let rightIndicatorWidth = getIndicatorWidth(title: titleDatas[rightItemIndex])
+        
+        //基于从左到右方向（无需考虑滑动方向），计算当前中心轴所处位置的长度
+        let nowIndicatorWidth: CGFloat = leftIndicatorWidth + (rightIndicatorWidth - leftIndicatorWidth) * relativeLocation
+        
+        //当前的frame
+        var nowFrame = self.indicatorView.frame
+        
+        let dif = CGFloat(abs(leftItemIndex-rightItemIndex))
+        //重新计算frame
+        if(relativeLocation <= 0.5) {
+            let width = nowIndicatorWidth + tabItemWidth * dif * (relativeLocation / 0.5)
+            nowFrame.size.width = width
+            
+            if leftToRight {
+                nowFrame.origin.x = leftTabItem.center.x - nowIndicatorWidth/2
+            } else {
+                nowFrame.origin.x = rightTabItem.center.x + nowIndicatorWidth/2 - (nowIndicatorWidth + tabItemWidth*dif)
+            }
+        } else {
+            let width = nowIndicatorWidth + tabItemWidth * dif * ((1 - relativeLocation) / 0.5)
+            nowFrame.size.width = width
+            if leftToRight {
+                nowFrame.origin.x = leftTabItem.center.x - nowIndicatorWidth/2 + (nowIndicatorWidth + tabItemWidth*dif) - width
+            } else {
+                nowFrame.origin.x = rightTabItem.center.x + nowIndicatorWidth/2 - width
+            }
+        }
+        
+        self.indicatorView.frame = nowFrame
+    }
 }
 
 //MARK: 响应事件
@@ -489,7 +547,7 @@ extension TFSegmentView {
             return indicatorWidth
         } else {
             if(title.count <= 2) {
-                return 40.0
+                return 30.0
             } else {
                 let width = CGFloat(title.count) * titleFont.pointSize + 12.0
                 return width
@@ -564,7 +622,6 @@ extension TFSegmentView: UIScrollViewDelegate {
             isChangeByClick = false
             contentView.isUserInteractionEnabled = true
             scrollView.isUserInteractionEnabled = true
-            
         }
     }
     
