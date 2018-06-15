@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TFSegment"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "Have no summary TFSegment."
 
   s.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.author       = { "jiangyunfeng" => "554994782@qq.com" }
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/554994782/TFSegment.git", :branch => "develop" }
+  s.source       = { :git => "https://github.com/554994782/TFSegment.git", :tag => s.version }
 
   s.source_files  = "TFSegment"
 
