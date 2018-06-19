@@ -18,7 +18,12 @@ open class TFSegmentView: UIView {
     //MARK: 公开属性
     
     /**背景颜色, 默认白色*/
-    public var backColor: UIColor = UIColor.white
+    public var backColor: UIColor = UIColor.white {
+        didSet {
+            backView.backgroundColor = backColor
+            contentView.backgroundColor = backColor
+        }
+    }
     /**Item最大显示数, 默认8*/
     public var maxItemCount: NSInteger = 8
     /**Item宽度, 不设置则平分*/
@@ -28,17 +33,24 @@ open class TFSegmentView: UIView {
     /**选中字体颜色*/
     public var selectedColor: UIColor = UIColor.red {
         didSet {
+            reloadAllView()
             selectColorRGB = TFColorRGB.init(color: selectedColor) //
         }
     }
     /**未选中字体颜色*/
     public var unSelectedColor: UIColor = UIColor.black {
         didSet {
+            reloadAllView()
             unSelectColorRGB = TFColorRGB.init(color: unSelectedColor) //
         }
     }
     /**默认字体大小*/
-    public var titleFont: UIFont = UIFont.systemFont(ofSize: 18)
+    public var titleFont: UIFont = UIFont.systemFont(ofSize: 18) {
+        didSet {
+            reloadAllView()
+        }
+    }
+    
     /**未选中字体缩小比例，默认是0.8（0~1）*/
     public var selectFontScale: CGFloat = 0.8 {
         didSet {
@@ -49,11 +61,23 @@ open class TFSegmentView: UIView {
     /**下标效果*/
     public var indicatorStyle: TFIndicatorWidthStyle = .default
     /**下标高度，默认是2.0*/
-    public var indicatorHeight: CGFloat = 2.0
+    public var indicatorHeight: CGFloat = 2.0 {
+        didSet {
+            layoutIndicatorViewWithStyle()
+        }
+    }
     /**下标宽度，默认是30*/
-    public var indicatorWidth: CGFloat = 30.0
+    public var indicatorWidth: CGFloat = 30.0 {
+        didSet {
+            layoutIndicatorViewWithStyle()
+        }
+    }
     /**底部分割线颜色*/
-    public var separatorColor: UIColor = UIColor.clear
+    public var separatorColor: UIColor = UIColor.clear {
+        didSet {
+            separatorView.backgroundColor = separatorColor
+        }
+    }
 
     /**代理*/
     public weak var delegate: TFSegmentViewDelegate?//代理回调
@@ -184,6 +208,20 @@ open class TFSegmentView: UIView {
             separatorView.frame = CGRect(x: 0, y: self.bounds.height-0.5, width: tabItemWidth * CGFloat(numOfItemCount), height: 0.5)
             self.layoutIndicatorViewWithStyle()
         }
+    }
+    
+    func reloadAllView() {
+        var i = 0
+        for item in tabItems {
+            if(i == selectedTabIndex) {
+                item.textColor = selectedColor
+            } else {
+                item.textColor = unSelectedColor
+            }
+            item.font = titleFont
+            i = i + 1
+        }
+        indicatorView.backgroundColor = selectedColor
     }
 }
 
