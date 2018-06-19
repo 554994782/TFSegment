@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         sv.delegate = self
         sv.delegateScrollView = scrollView
         sv.titleStyle = .fill//title颜色进度填充
+        sv.selectedColor = .purple
         sv.indicatorStyle = .stretch//下标拉伸变化
         return sv
     }()
