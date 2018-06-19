@@ -17,9 +17,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.title = "示例代码"
         self.view.backgroundColor = UIColor.orange
-        view.addSubview(segmentView1)
+//        view.addSubview(segmentView1)
 //        view.addSubview(segmentView2)
-//        view.addSubview(segmentView3)
+        view.addSubview(segmentView3)
 //        view.addSubview(segmentView4)
         view.addSubview(scrollView)
         scrollviewAddSubViews()
