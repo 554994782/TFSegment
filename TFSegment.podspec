@@ -25,6 +25,4 @@ end
 
 s.public_header_files = "TFSegment/**/*.h"
 
-s.dependency 'SnapKit'
-
 end
