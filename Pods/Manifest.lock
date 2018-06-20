@@ -1,24 +1,18 @@
 PODS:
-  - TFSegment (1.0.0):
-    - TFSegment/Custom (= 1.0.0)
-  - TFSegment/Custom (1.0.0)
+  - TFSegment (1.0.1):
+    - TFSegment/Custom (= 1.0.1)
+  - TFSegment/Custom (1.0.1)
 
 DEPENDENCIES:
-  - TFSegment (from `https://github.com/554994782/TFSegment.git`, branch `develop`)
+  - TFSegment
 
-EXTERNAL SOURCES:
-  TFSegment:
-    :branch: develop
-    :git: https://github.com/554994782/TFSegment.git
-
-CHECKOUT OPTIONS:
-  TFSegment:
-    :commit: e967d9fcc13e4a59bb74f7d3397d6e95f388dfcf
-    :git: https://github.com/554994782/TFSegment.git
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - TFSegment
 
 SPEC CHECKSUMS:
-  TFSegment: 87389151e8110f2ba6331e5ff663eff81c1d6993
+  TFSegment: 3aeaed035999819cb9f2653601fa65cd94b8c027
 
-PODFILE CHECKSUM: abd8e9cd1330fb4673a4273939dd895b560c67b3
+PODFILE CHECKSUM: 5539b7649c90d43d71eded11ba5e1696daaeae02
 
 COCOAPODS: 1.5.0
