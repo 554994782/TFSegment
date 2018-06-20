@@ -17,11 +17,6 @@
   },
   "source_files": "TFSegment",
   "public_header_files": "TFSegment/**/*.h",
-  "dependencies": {
-    "SnapKit": [
-
-    ]
-  },
   "subspecs": [
     {
       "name": "Custom",

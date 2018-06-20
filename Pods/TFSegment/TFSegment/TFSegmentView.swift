@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 public protocol TFSegmentViewDelegate : NSObjectProtocol {
     /// 点击item回调
@@ -18,7 +19,12 @@ open class TFSegmentView: UIView {
     //MARK: 公开属性
     
     /**背景颜色, 默认白色*/
-    public var backColor: UIColor = UIColor.white
+    public var backColor: UIColor = UIColor.white {
+        didSet {
+            backView.backgroundColor = backColor
+            contentView.backgroundColor = backColor
+        }
+    }
     /**Item最大显示数, 默认8*/
     public var maxItemCount: NSInteger = 8
     /**Item宽度, 不设置则平分*/
@@ -28,17 +34,24 @@ open class TFSegmentView: UIView {
     /**选中字体颜色*/
     public var selectedColor: UIColor = UIColor.red {
         didSet {
+            reloadAllView()
             selectColorRGB = TFColorRGB.init(color: selectedColor) //
         }
     }
     /**未选中字体颜色*/
     public var unSelectedColor: UIColor = UIColor.black {
         didSet {
+            reloadAllView()
             unSelectColorRGB = TFColorRGB.init(color: unSelectedColor) //
         }
     }
     /**默认字体大小*/
-    public var titleFont: UIFont = UIFont.systemFont(ofSize: 18)
+    public var titleFont: UIFont = UIFont.systemFont(ofSize: 18) {
+        didSet {
+            reloadAllView()
+        }
+    }
+    
     /**未选中字体缩小比例，默认是0.8（0~1）*/
     public var selectFontScale: CGFloat = 0.8 {
         didSet {
@@ -49,31 +62,43 @@ open class TFSegmentView: UIView {
     /**下标效果*/
     public var indicatorStyle: TFIndicatorWidthStyle = .default
     /**下标高度，默认是2.0*/
-    public var indicatorHeight: CGFloat = 2.0
+    public var indicatorHeight: CGFloat = 2.0 {
+        didSet {
+            layoutIndicatorViewWithStyle()
+        }
+    }
     /**下标宽度，默认是30*/
-    public var indicatorWidth: CGFloat = 30.0
+    public var indicatorWidth: CGFloat = 30.0 {
+        didSet {
+            layoutIndicatorViewWithStyle()
+        }
+    }
     /**底部分割线颜色*/
-    public var separatorColor: UIColor = UIColor.clear
+    public var separatorColor: UIColor = UIColor.clear {
+        didSet {
+            separatorView.backgroundColor = separatorColor
+        }
+    }
 
     /**代理*/
     public weak var delegate: TFSegmentViewDelegate?//代理回调
     public weak var delegateScrollView: UIScrollView?//设置要跟踪的scrollView
     
     //MARK: 过程记录
-    private var tabItems = [TFItemLabel]() //Item数组
-    private var selectedTabIndex: NSInteger = 0 {//当前选择项
+    fileprivate var tabItems = [TFItemLabel]() //Item数组
+    fileprivate var selectedTabIndex: NSInteger = 0 {//当前选择项
         willSet {
             lastSelectedTabIndex = selectedTabIndex
         }
     }
-    private var lastSelectedTabIndex: NSInteger = 0 //记录上一次选择项
-    private var isNeedRefreshLayout = true //滑动过程中不允许layoutSubviews
-    private var isChangeByClick = false //是否是通过点击改变的
-    private var leftItemIndex: NSInteger = 0 //记录滑动时左边的itemIndex
-    private var rightItemIndex: NSInteger = 0 //记录滑动时右边的itemIndex
-    private var leftToRight: Bool = true //从左到右
-    private var numOfItemCount: NSInteger = 0 //最终显示Item个数
-    private var shiftOffset: CGFloat = 0.0 { //偏移量在一页中的占比(0.0~1.0)
+    fileprivate var lastSelectedTabIndex: NSInteger = 0 //记录上一次选择项
+    fileprivate var isNeedRefreshLayout = true //滑动过程中不允许layoutSubviews
+    fileprivate var isChangeByClick = false //是否是通过点击改变的
+    fileprivate var leftItemIndex: NSInteger = 0 //记录滑动时左边的itemIndex
+    fileprivate var rightItemIndex: NSInteger = 0 //记录滑动时右边的itemIndex
+    fileprivate var leftToRight: Bool = true //从左到右
+    fileprivate var numOfItemCount: NSInteger = 0 //最终显示Item个数
+    fileprivate var shiftOffset: CGFloat = 0.0 { //偏移量在一页中的占比(0.0~1.0)
         didSet {
             if isChangeByClick {
                 changeIndexWithAnimation()
@@ -85,8 +110,8 @@ open class TFSegmentView: UIView {
         }
     }
     
-    private var selectColorRGB: TFColorRGB = TFColorRGB.init(color: UIColor.red) //
-    private var unSelectColorRGB: TFColorRGB = TFColorRGB.init(color: UIColor.black) //
+    fileprivate var selectColorRGB: TFColorRGB = TFColorRGB.init(color: UIColor.red) //
+    fileprivate var unSelectColorRGB: TFColorRGB = TFColorRGB.init(color: UIColor.black) //
     //MARK: 数据源
     var titleDatas = [String]() //title数组
     
@@ -106,7 +131,6 @@ open class TFSegmentView: UIView {
     ///背景
     lazy var backView: UIView = {
         let bv = UIView()
-        bv.backgroundColor = backColor
         return bv
     }()
     
@@ -117,21 +141,19 @@ open class TFSegmentView: UIView {
         cv.showsHorizontalScrollIndicator = false
         cv.delegate = self
         cv.clipsToBounds = true
-        cv.backgroundColor = backColor
+        
         return cv
     }()
     
     ///底部分割线
     lazy var separatorView: UIView = {
         let sv = UIView()
-        sv.backgroundColor = separatorColor
         return sv
     }()
     
     ///下标
     lazy var indicatorView: UIView = {
         let iv = UIView()
-        iv.backgroundColor = selectedColor
         return iv
     }()
     
@@ -156,6 +178,10 @@ open class TFSegmentView: UIView {
         }
         self.addSubview(separatorView)
         self.addSubview(indicatorView)
+        backView.backgroundColor = backColor
+        contentView.backgroundColor = backColor
+        separatorView.backgroundColor = separatorColor
+        indicatorView.backgroundColor = selectedColor
         layoutIfNeeded()
     }
     
@@ -184,6 +210,20 @@ open class TFSegmentView: UIView {
             separatorView.frame = CGRect(x: 0, y: self.bounds.height-0.5, width: tabItemWidth * CGFloat(numOfItemCount), height: 0.5)
             self.layoutIndicatorViewWithStyle()
         }
+    }
+    
+    func reloadAllView() {
+        var i = 0
+        for item in tabItems {
+            if(i == selectedTabIndex) {
+                item.textColor = selectedColor
+            } else {
+                item.textColor = unSelectedColor
+            }
+            item.font = titleFont
+            i = i + 1
+        }
+        indicatorView.backgroundColor = selectedColor
     }
 }
 

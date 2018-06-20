@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB6C68A79B042F5C2FC36FB08EF3DE63"
+               BlueprintIdentifier = "B18AE39E5E42E49B73D6F8174B4287A0"
                BlueprintName = "TFSegment"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "TFSegment.framework">

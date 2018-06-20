@@ -13,8 +13,10 @@ source 'https://github.com/Cocoapods/Specs.git'
 
 target 'TFSegmentDemo' do
     use_frameworks!
-    pod 'TFSegment'
+    pod 'TFSegment', :git => 'https://github.com/554994782/TFSegment.git', :branch => ‘develop’
+
 end
+
 
 target 'TFSegment' do
     use_frameworks!
