@@ -21,8 +21,8 @@ open class TFSegmentView: UIView {
     /**背景颜色, 默认白色*/
     public var backColor: UIColor = UIColor.white {
         didSet {
-//            backView.backgroundColor = backColor
-//            contentView.backgroundColor = backColor
+            backView.backgroundColor = backColor
+            contentView.backgroundColor = backColor
         }
     }
     /**Item最大显示数, 默认8*/
